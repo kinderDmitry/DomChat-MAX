@@ -19,12 +19,7 @@
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "4.7.0",
     "typescript": "~5.8.3",
-    "vite": "6.4.6",
+    "vite": "6.2.7",
     "vitest": "5.1.0"
-  },
-  "overrides": {
-    "picomatch": "4.0.8",
-    "fdir": "6.5.0",
-    "tinyglobby": "0.2.15"
   }
 }
