@@ -32,3 +32,20 @@ create policy "same home chat read" on public.chat_messages for select to authen
 create policy "same home chat insert" on public.chat_messages for insert to authenticated with check(sender_id=auth.uid() and home_id=(select public.my_home_id()) and (recipient_id is null or exists(select 1 from public.profiles r where r.id=recipient_id and r.home_id=chat_messages.home_id)));
 create policy "own chat delete" on public.chat_messages for delete to authenticated using(sender_id=auth.uid());
 do $$ begin alter publication supabase_realtime add table public.chat_messages;exception when duplicate_object then null;when undefined_object then null;end $$;
+-- Explicit table privileges: RLS policies do not replace SQL privileges.
+grant select on public.homes to authenticated;
+grant select on public.consent_records to authenticated;
+grant select, insert, update, delete on public.vehicles to authenticated;
+grant select, insert, delete on public.chat_messages to authenticated;
+
+-- Restrict SECURITY DEFINER RPCs to signed-in users; the trigger function
+-- is invoked by the auth.users trigger and is not an RPC endpoint.
+revoke all on function public.my_home_id() from public, anon;
+revoke all on function public.get_my_profile() from public, anon;
+revoke all on function public.get_home_directory() from public, anon;
+revoke all on function public.update_my_profile(text,text,text,text,boolean,boolean,boolean,boolean) from public, anon;
+revoke all on function public.domchat_new_user() from public, anon;
+grant execute on function public.my_home_id() to authenticated;
+grant execute on function public.get_my_profile() to authenticated;
+grant execute on function public.get_home_directory() to authenticated;
+grant execute on function public.update_my_profile(text,text,text,text,boolean,boolean,boolean,boolean) to authenticated;
