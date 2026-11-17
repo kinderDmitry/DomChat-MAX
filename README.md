@@ -19,7 +19,7 @@ React + TypeScript + Vite + Supabase приложение для домовог�
 В Supabase Auth можно отключить подтверждение email, если нужен вход сразу после регистрации. Это не KYC и не проверка документов.
 
 ## MAX
-Публичная сборка автоматически публикуется через GitHub Pages после успешных тестов и сборки. Адрес сайта будет иметь вид https://kinderdmitry.github.io/DomChat-MAX/.
+После однократного включения GitHub Pages в Settings → Pages с источником GitHub Actions приложение автоматически публикуется после успешных тестов и сборки. Адрес сайта: https://kinderdmitry.github.io/DomChat-MAX/.
 
 Для проверки подписи запуска MAX развернута Supabase Edge Function `max-init-data`. Она требует секрет `MAX_BOT_TOKEN` в Supabase Dashboard → Edge Functions → Secrets. Значение берётся в кабинете MAX для ботов; не добавляйте его в GitHub, frontend или сообщения. Без этого секрета endpoint намеренно отвечает `503 max_auth_not_configured`, а проверка запуска не считается пройденной.
 
