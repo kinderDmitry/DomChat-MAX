@@ -1,4 +1,4 @@
-name: Deploy DomChat MAX to GitHub Pages
+name: Deploy DomChat Web to GitHub Pages
 
 on:
   push:
