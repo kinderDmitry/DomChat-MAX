@@ -15,5 +15,9 @@ jobs:
         with:
           node-version: 22
       - run: npm install
+      - name: Audit dependency tree
+        run: |
+          npm audit --json > audit-report.json || true
+          node -e "const a=require('./audit-report.json'); for (const [n,v] of Object.entries(a.vulnerabilities || {})) console.log(n + ': ' + v.severity + '; direct=' + v.isDirect + '; fix=' + JSON.stringify(v.fixAvailable))"
       - run: npm test
       - run: npm run build
