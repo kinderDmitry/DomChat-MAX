@@ -15,7 +15,6 @@ jobs:
         with:
           node-version: 22
       - run: npm install
-      - run: npm audit fix
       - name: Audit dependency tree
         run: |
           npm audit --json > audit-report.json || true
